@@ -1,0 +1,17 @@
+from django.shortcuts import render
+
+# projects dashboard
+def dashboard(request):
+    pass
+
+# create/read/update and delete projects view
+def projects_crud(request):
+    pass
+
+# administation roles crud operations view
+def project_roles_crud(request):
+    pass
+
+# regen new api key
+def regen_api(request):
+    pass
