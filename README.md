@@ -7,6 +7,19 @@ OrionSenseHub is an IoT server developed with Django as the main backend and use
 Supports:
 - Websockets
 - API calls
+
+Data ingestion and processing
+- Real time telemetry streaming(websockets)
+- Data storage and history
+- Event triggers and alerts
+- Edge Computing(Later integration)
+
+SaaS services
+- Predictive maintenance
+- Anomaly detection
+- Behavioral analytics
+- Custom AI models
+
 ---
 
 

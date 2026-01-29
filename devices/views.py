@@ -1,3 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
+def devices_overview(request):
+    return render(request, 'devices_overview.html')

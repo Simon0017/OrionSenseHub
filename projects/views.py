@@ -2,7 +2,10 @@ from django.shortcuts import render
 
 # projects dashboard
 def dashboard(request):
-    pass
+    return render(request, 'projects_dashboard.html')
+
+def project_overview(request):
+    return render(request, 'project_overview.html')
 
 # create/read/update and delete projects view
 def projects_crud(request):

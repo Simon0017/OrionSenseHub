@@ -1,0 +1,478 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agriculture IoT - Project Details</title>
+   <!-- Base styles from main dashboard -->
+    <link rel="stylesheet" href="{% static 'core/css/main.css' %}">
+    <!-- Projects specific styles -->
+    <link rel="stylesheet" href="{% static 'projects/css/project_dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'projects/css/project_overview.css' %}">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-microchip"></i>
+                <span class="logo-text">IoT Platform</span>
+            </div>
+            <button class="toggle-btn" id="toggleBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="nav-item">
+                    <a href="index.html">
+                        <i class="fas fa-th-large"></i>
+                        <span class="nav-text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="projects.html">
+                        <i class="fas fa-folder-open"></i>
+                        <span class="nav-text">Projects</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="devices.html">
+                        <i class="fas fa-server"></i>
+                        <span class="nav-text">Devices</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#analytics">
+                        <i class="fas fa-chart-line"></i>
+                        <span class="nav-text">Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#api-keys">
+                        <i class="fas fa-key"></i>
+                        <span class="nav-text">API Keys</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#settings">
+                        <i class="fas fa-cog"></i>
+                        <span class="nav-text">Settings</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#profile">
+                        <i class="fas fa-user-circle"></i>
+                        <span class="nav-text">Profile</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <i class="fas fa-user-circle user-avatar"></i>
+                <div class="user-details">
+                    <span class="user-name">John Doe</span>
+                    <span class="user-role">Administrator</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Top Bar -->
+        <header class="top-bar">
+            <div class="breadcrumb">
+                <a href="/projects/dashboard/"><i class="fas fa-folder-open"></i> Projects</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Agriculture IoT</span>
+            </div>
+            <div class="top-bar-actions">
+                <button class="icon-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">5</span>
+                </button>
+                <button class="icon-btn">
+                    <i class="fas fa-envelope"></i>
+                    <span class="badge">3</span>
+                </button>
+                <div class="user-menu">
+                    <img src="https://ui-avatars.com/api/?name=John+Doe&background=667eea&color=fff" alt="User" class="user-avatar-img">
+                </div>
+            </div>
+        </header>
+
+        <!-- Project Detail Container -->
+        <div class="project-detail-container">
+            <!-- Project Header -->
+            <div class="project-detail-header">
+                <div class="project-header-main">
+                    <div class="project-icon-large">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <div class="project-header-info">
+                        <h1 id="projectTitle">Agriculture IoT</h1>
+                        <p class="project-description" id="projectDescription">
+                            Precision agriculture system monitoring soil moisture, temperature, and crop health for optimal yield management.
+                        </p>
+                        <div class="project-meta-tags">
+                            <span class="meta-tag status-tag active">
+                                <i class="fas fa-check-circle"></i> Active
+                            </span>
+                            <span class="meta-tag">
+                                <i class="fas fa-microchip"></i> 52 Devices
+                            </span>
+                            <span class="meta-tag">
+                                <i class="fas fa-calendar-plus"></i> Created Oct 10, 2025
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-header-actions">
+                    <button class="btn-outline" id="editProjectBtn">
+                        <i class="fas fa-edit"></i> Edit Project
+                    </button>
+                    <button class="btn-primary" id="exportDataBtn">
+                        <i class="fas fa-download"></i> Export Data
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Layout: Content + Sidebar -->
+            <div class="project-layout">
+                <!-- Main Content Area -->
+                <div class="project-main-content">
+                    
+                    <!-- Latest Device Data -->
+                    <section class="content-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-stream"></i> Latest Device Data</h2>
+                            <button class="btn-secondary btn-sm">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                        </div>
+                        <div class="rolling-table-container">
+                            <table class="rolling-table" id="deviceDataTable">
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Device</th>
+                                        <th>Type</th>
+                                        <th>Value</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="deviceDataBody">
+                                    <!-- Data populated by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- Charts Section -->
+                    <section class="content-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-chart-line"></i> Real-time Analytics</h2>
+                            <select class="time-selector">
+                                <option>Last 24 Hours</option>
+                                <option>Last 7 Days</option>
+                                <option>Last 30 Days</option>
+                            </select>
+                        </div>
+                        <div class="charts-grid">
+                            <!-- Soil Moisture Line Chart -->
+                            <div class="chart-box">
+                                <h3>Soil Moisture Levels</h3>
+                                <canvas id="soilMoistureChart"></canvas>
+                            </div>
+
+                            <!-- Temperature Gauge -->
+                            <div class="chart-box gauge-box">
+                                <h3>Current Temperature</h3>
+                                <div class="gauge-container">
+                                    <canvas id="temperatureGauge"></canvas>
+                                    <div class="gauge-value" id="tempGaugeValue">24.5°C</div>
+                                </div>
+                            </div>
+
+                            <!-- Irrigation Bar Chart -->
+                            <div class="chart-box">
+                                <h3>Weekly Irrigation Schedule</h3>
+                                <canvas id="irrigationChart"></canvas>
+                            </div>
+
+                            <!-- Crop Health Line Chart -->
+                            <div class="chart-box">
+                                <h3>Crop Health Index (NDVI)</h3>
+                                <canvas id="cropHealthChart"></canvas>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Latest Analytics AI -->
+                    <section class="content-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-brain"></i> AI Analytics</h2>
+                            <span class="badge-premium">
+                                <i class="fas fa-crown"></i> Premium
+                            </span>
+                        </div>
+                        <div class="analytics-grid" id="analyticsGrid">
+                            <!-- Analytics populated by JS -->
+                        </div>
+                    </section>
+
+                    <!-- Scheduled Actions (SaaS Feature) -->
+                    <section class="content-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-clock"></i> Scheduled Actions</h2>
+                            <button class="btn-primary btn-sm" id="addScheduleBtn">
+                                <i class="fas fa-plus"></i> New Schedule
+                            </button>
+                        </div>
+                        <div class="schedule-container" id="scheduleContainer">
+                            <!-- Schedules populated by JS -->
+                        </div>
+                    </section>
+
+                    <!-- Action History -->
+                    <section class="content-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-history"></i> Action History</h2>
+                            <button class="btn-secondary btn-sm">
+                                <i class="fas fa-filter"></i> Filter
+                            </button>
+                        </div>
+                        <div class="history-timeline" id="historyTimeline">
+                            <!-- History populated by JS -->
+                        </div>
+                    </section>
+
+                    <!-- API Key Management -->
+                    <section class="content-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-key"></i> API Key Management</h2>
+                            <button class="btn-primary btn-sm" id="generateKeyBtn">
+                                <i class="fas fa-plus"></i> Generate New Key
+                            </button>
+                        </div>
+                        <div class="api-keys-list" id="apiKeysList">
+                            <!-- API Keys populated by JS -->
+                        </div>
+                    </section>
+
+                </div>
+
+                <!-- Right Sidebar: Team Members -->
+                <aside class="project-sidebar">
+                    <div class="sidebar-section">
+                        <div class="sidebar-section-header">
+                            <h3><i class="fas fa-users"></i> Team Members</h3>
+                            <button class="btn-icon" id="addMemberBtn">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <div class="members-list" id="membersList">
+                            <!-- Members populated by JS -->
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- Edit Project Modal -->
+    <div class="modal" id="editProjectModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-edit"></i> Edit Project</h2>
+                <button class="modal-close" data-modal="editProjectModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form class="modal-body" id="editProjectForm">
+                <div class="form-group">
+                    <label for="editProjectName">Project Name</label>
+                    <input type="text" id="editProjectName" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="editProjectDescription">Description</label>
+                    <textarea id="editProjectDescription" class="form-input" rows="4"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editProjectStatus">Status</label>
+                        <select id="editProjectStatus" class="form-input">
+                            <option value="active">Active</option>
+                            <option value="idle">Idle</option>
+                            <option value="archived">Archived</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editProjectCategory">Category</label>
+                        <select id="editProjectCategory" class="form-input">
+                            <option value="agriculture">Agriculture</option>
+                            <option value="smart-home">Smart Home</option>
+                            <option value="industrial">Industrial</option>
+                            <option value="healthcare">Healthcare</option>
+                            <option value="environmental">Environmental</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" data-modal="editProjectModal">Cancel</button>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-check"></i> Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Member Modal -->
+    <div class="modal" id="addMemberModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content modal-sm">
+            <div class="modal-header">
+                <h2><i class="fas fa-user-plus"></i> Add Team Member</h2>
+                <button class="modal-close" data-modal="addMemberModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form class="modal-body" id="addMemberForm">
+                <div class="form-group">
+                    <label for="memberEmail">Email Address</label>
+                    <input type="email" id="memberEmail" class="form-input" placeholder="email@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="memberRole">Role</label>
+                    <select id="memberRole" class="form-input">
+                        <option value="viewer">Viewer</option>
+                        <option value="editor">Editor</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" data-modal="addMemberModal">Cancel</button>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-check"></i> Add Member
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Member Modal -->
+    <div class="modal" id="editMemberModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content modal-sm">
+            <div class="modal-header">
+                <h2><i class="fas fa-user-edit"></i> Edit Member Role</h2>
+                <button class="modal-close" data-modal="editMemberModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="member-edit-info" id="editMemberInfo"></div>
+                <div class="form-group">
+                    <label for="editMemberRole">Role</label>
+                    <select id="editMemberRole" class="form-input">
+                        <option value="viewer">Viewer</option>
+                        <option value="editor">Editor</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" data-modal="editMemberModal">Cancel</button>
+                    <button type="button" class="btn-primary" id="saveMemberRole">
+                        <i class="fas fa-check"></i> Save Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Schedule Modal -->
+    <div class="modal" id="addScheduleModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-calendar-plus"></i> Schedule Action</h2>
+                <button class="modal-close" data-modal="addScheduleModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form class="modal-body" id="addScheduleForm">
+                <div class="form-group">
+                    <label for="scheduleAction">Action Type</label>
+                    <select id="scheduleAction" class="form-input" required>
+                        <option value="">Select action...</option>
+                        <option value="irrigation">Start Irrigation</option>
+                        <option value="fertilization">Apply Fertilizer</option>
+                        <option value="monitoring">Increase Monitoring</option>
+                        <option value="notification">Send Notification</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="scheduleTime">Time</label>
+                        <input type="time" id="scheduleTime" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="scheduleDuration">Duration (mins)</label>
+                        <input type="number" id="scheduleDuration" class="form-input" placeholder="30" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="scheduleRecurrence">Recurrence</label>
+                    <select id="scheduleRecurrence" class="form-input">
+                        <option value="once">Once</option>
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="custom">Custom</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" data-modal="addScheduleModal">Cancel</button>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-check"></i> Create Schedule
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirm Action Modal -->
+    <div class="modal" id="confirmActionModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content modal-sm">
+            <div class="modal-header">
+                <h2><i class="fas fa-exclamation-circle"></i> Confirm Action</h2>
+                <button class="modal-close" data-modal="confirmActionModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="confirm-message" id="confirmMessage"></p>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" data-modal="confirmActionModal">Cancel</button>
+                    <button type="button" class="btn-primary" id="confirmActionBtn">
+                        <i class="fas fa-check"></i> Confirm
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'projects/js/project_overview.js' %}"></script>
+</body>
+</html>

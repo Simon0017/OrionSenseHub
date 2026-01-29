@@ -9,7 +9,6 @@ class devices(models.Model):
     device_id = models.CharField(max_length=300,editable=False)
     description = models.TextField()
     sensors = models.JSONField(default=list,null=True) #define sensors in the template to match the sensors definitions
-    configurations = models.JSONField(null=True)
 
     # relations
     project = models.ForeignKey(project,on_delete=models.CASCADE,related_name="devices")
@@ -59,14 +58,14 @@ class devices_configuration(models.Model):
         ("humidity","Humidity"),
         ("gps","GPS"),
         ("degrees","Degrees"),
-        ("image_url,Image_url")
+        ("image_url","Image_url"),
         ("distance","Distance"),
         ("ph","Ph")
     ]
     device = models.ForeignKey(devices,on_delete=models.CASCADE,related_name='configurations') # can attach multiple configuration/rules to the same device
     data_type = models.CharField(max_length=200,null=True,choices=DATA_TYPE_CHOICES)
-    min_value = models.DecimalField(null=True)
-    max_value  = models.DecimalField(null=True)
+    min_value = models.DecimalField(decimal_places=2,max_digits=5,null=True)
+    max_value  = models.DecimalField(decimal_places=2,max_digits=5,null=True)
 
     rule = models.CharField(max_length=250,null=True)
 

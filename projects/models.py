@@ -71,7 +71,7 @@ class projectMembership(models.Model):
     joined_at = models.DateTimeField(auto_now_add=True)
     
     class Meta:
-        unique_together = ("user","roles") # prevent duplicate roles
+        unique_together = ("user","role") # prevent duplicate roles
         indexes = [
             models.Index(fields=['user','project'])
         ]
