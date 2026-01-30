@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - IoT Platform</title>
+    <link rel="stylesheet" href="{% static 'users/css/auth.css' %}">
+    <link rel="shortcut icon" href="{% static 'core/img/logo.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="auth-container">
+        <!-- Left Side: Image Slideshow -->
+        <div class="auth-visual-side">
+            <div class="slideshow-container">
+                <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&h=800&fit=crop');"></div>
+                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1200&h=800&fit=crop');"></div>
+                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&h=800&fit=crop');"></div>
+                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1200&h=800&fit=crop');"></div>
+            </div>
+            
+            <div class="slideshow-dots">
+                <span class="dot active" data-slide="0"></span>
+                <span class="dot" data-slide="1"></span>
+                <span class="dot" data-slide="2"></span>
+                <span class="dot" data-slide="3"></span>
+            </div>
+
+            <!-- Overlay for better text readability -->
+            <div class="slide-overlay"></div>
+            
+            <div class="slide-text-content">
+                <h2 class="slide-title">Welcome Back</h2>
+                <p class="slide-description">Access Your IoT Dashboard</p>
+            </div>
+        </div>
+
+        <!-- Right Side: Login Form -->
+        <div class="auth-form-side">
+            <div class="auth-form-wrapper">
+                <div class="auth-logo">
+                    <i class="fas fa-microchip"></i>
+                    <span>IoT Platform</span>
+                </div>
+                
+                <div class="auth-header">
+                    <h1>Welcome Back</h1>
+                    <p>Sign in to access your IoT dashboard</p>
+                </div>
+
+                <form class="auth-form" id="loginForm">
+                    <div class="floating-input">
+                        <input type="text" id="emailUsername" required>
+                        <label for="emailUsername">Email or Username</label>
+                        <i class="fas fa-user input-icon"></i>
+                    </div>
+
+                    <div class="floating-input">
+                        <input type="password" id="password" required>
+                        <label for="password">Password</label>
+                        <i class="fas fa-lock input-icon"></i>
+                        <i class="fas fa-eye password-toggle" id="togglePassword"></i>
+                    </div>
+
+                    <div class="form-options">
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="rememberMe">
+                            <label for="rememberMe">Remember me</label>
+                        </div>
+                        <a href="#" class="auth-link">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="auth-btn primary">
+                        <span>Sign In</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+
+                    <div class="divider">
+                        <span>Or continue with</span>
+                    </div>
+
+                    <div class="oauth-buttons">
+                        <button type="button" class="oauth-btn google">
+                            <i class="fab fa-google"></i>
+                            <span>Google</span>
+                        </button>
+                        <button type="button" class="oauth-btn github">
+                            <i class="fab fa-github"></i>
+                            <span>GitHub</span>
+                        </button>
+                    </div>
+
+                    <div class="auth-footer">
+                        Don't have an account? 
+                        <a href="registration.html" class="auth-link">Sign Up</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'users/js/login.js' %}"></script>
+</body>
+</html>

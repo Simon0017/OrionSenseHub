@@ -3,11 +3,11 @@ from django.shortcuts import render
 
 # user registration view
 def user_registration(request):
-    pass
+    return render(request, 'registration.html')
 
 # user login view
 def user_login(request):
-    pass
+    return render(request, 'login.html')
 
 # account settings view
 def account_settings(request):
