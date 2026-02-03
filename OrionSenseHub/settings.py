@@ -146,25 +146,7 @@ REST_FRAMEWORK = {
     # define here authentication and also authorization ie throttling(rate limiting and aslo permissions)
 }
 
-SENSOR_DEFINITIONS = {
-    "Temperature":{
-        "fields":["value"],
-        "units":"°C"
-    },
-    "Humidity":{
-        "fields":["value"],
-        "units":"%"
-    },
-    "Camera":{
-        "fields":["image_url"],
-        "units":None
-    },
-    "GPS":{
-        "fields":["longitude","latitude"],
-        "units":None
-    }
-}
-
+# Logging Configuration
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -195,14 +177,29 @@ LOGGING = {
             'level': 'WARNING',
             'propagate': True,
         },
-        'USERS': {  
+        'core': {
             'handlers': ['console', 'file'],
             'level': 'WARNING',
-            'propagate': False,
+            'propagate': True,
         },
-        'activity_tracker': {
-            'handlers': ['file'],
-            'level': 'INFO',
+        'data': {
+            'handlers': ['console', 'file'],
+            'level': 'WARNING',
+            'propagate': True,
+        },
+        'devices': {
+            'handlers': ['console', 'file'],
+            'level': 'WARNING',
+            'propagate': True,
+        },
+        'projects': {
+            'handlers': ['console', 'file'],
+            'level': 'WARNING',
+            'propagate': True,
+        },
+        'users': {
+            'handlers': ['console', 'file'],
+            'level': 'WARNING',
             'propagate': True,
         },
     },
